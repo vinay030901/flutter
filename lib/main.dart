@@ -9,10 +9,10 @@ void main() => runApp(const MyApp());
 
 // material.dart has a base class which could be used to make the widgets
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  //const MyApp({super.key});
+  var questionIndex = 0;
   void answerQuestion() {
-    print("Answer chosen");
+    questionIndex++;
   }
 
   @override
@@ -29,11 +29,17 @@ class MyApp extends StatelessWidget {
         // dart also provide us with list
         body: Column(
           children: [
-            Text(questions[0]),
-            ElevatedButton(onPressed: answerQuestion, child: Text('Answer 1')),
+            Text(
+              questions[1],
+            ),
             ElevatedButton(
-                onPressed: () => print("Answer 2 chosen"),
-                child: Text('Answer 2')),
+              onPressed: answerQuestion,
+              child: Text('Answer 1'),
+            ),
+            ElevatedButton(
+              onPressed: () => print("Answer 2 chosen"),
+              child: Text('Answer 2'),
+            ),
             ElevatedButton(
               onPressed: () {
                 print("Answer 3 chosen");

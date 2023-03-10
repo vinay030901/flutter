@@ -9,7 +9,7 @@ class Answer extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: null,
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
         child: const Text(
           'Answer 1',
           style: TextStyle(fontSize: 20),

@@ -2,17 +2,29 @@
 // the first widget is the root widget means that entire app is a widget
 import 'package:flutter/material.dart';
 
+import './question.dart';
+
 // void main() {
 //   runApp(MyApp());
 // }
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
 // material.dart has a base class which could be used to make the widgets
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
   //const MyApp({super.key});
-  var questionIndex = 0;
-  void answerQuestion() {
-    questionIndex++;
+
+  var _questionIndex = 0;
+  void _answerQuestion() {
+    setState(() {
+      _questionIndex++;
+    });
   }
 
   @override
@@ -29,11 +41,11 @@ class MyApp extends StatelessWidget {
         // dart also provide us with list
         body: Column(
           children: [
-            Text(
-              questions[1],
+            Question(
+              questions[_questionIndex],
             ),
             ElevatedButton(
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
               child: Text('Answer 1'),
             ),
             ElevatedButton(

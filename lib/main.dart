@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -19,47 +20,55 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   //const MyApp({super.key});
-
+  static const questions = [
+    {
+      'questionText': "What's your favorite color?",
+      'answers': ['Black', 'Red', 'Green', 'Blue'],
+    },
+    {
+      'questionText': "What's your favorite animal?",
+      'answers': ['Dog', 'Cat', 'Tiger', 'Cow'],
+    },
+    {
+      'questionText': "What's your favorite game?",
+      'answers': ['Cricket', 'Football', 'Basketball', 'Tennis'],
+    },
+  ];
   var _questionIndex = 0;
   void _answerQuestion() {
-    setState(() {
-      _questionIndex++;
-    });
+    if (_questionIndex < questions.length) {
+      setState(() {
+        _questionIndex++;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> questions = [
-      "What's your favorite color?",
-      "What's your favorite animal?"
-    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('My First App'),
         ),
         // dart also provide us with list
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex],
-            ),
-            ElevatedButton(
-              onPressed: _answerQuestion,
-              child: Text('Answer 1'),
-            ),
-            ElevatedButton(
-              onPressed: () => print("Answer 2 chosen"),
-              child: Text('Answer 2'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                print("Answer 3 chosen");
-              },
-              child: Text('Answer 3'),
-            ),
-          ],
-        ),
+        body: _questionIndex < questions.length
+            ? Column(
+                children: [
+                  Question(
+                    questions[_questionIndex]['questionText'] as String,
+                  ),
+                  ...(questions[_questionIndex]['answers'] as List<String>)
+                      .map((answer) {
+                    return Answer(_answerQuestion, answer);
+                  }).toList(),
+                ],
+              )
+            : const Center(
+                child: Text(
+                  "Quiz completed",
+                  style: TextStyle(fontSize: 60),
+                ),
+              ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
